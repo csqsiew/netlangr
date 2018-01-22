@@ -31,7 +31,7 @@ getnetstats <- function(network) {
   # closeness centrality
   # closeness in igraph calculates a value for all nodes in a disconnected graph
   # it only really makes sense to calculate closeness for nodes in the gc.
-  x <- sapply(igraph::decompose.graph(network), vcount) # split graph into their components
+  x <- sapply(igraph::decompose.graph(network), igraph::vcount) # split graph into their components
   y <- which(x == max(x)) # find the largest connected component
   lcc <- igraph::decompose.graph(network)[[y]] # select the lcc
   closeness_output <- as.data.frame(igraph::closeness(lcc, normalized = T)) # get closeness for each node, normalized or not?

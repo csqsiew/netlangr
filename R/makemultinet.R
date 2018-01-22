@@ -28,7 +28,8 @@ makemultinet <- function(words) {
   o.l <- nodeindex(tolangnet(words$Ortho), words$label)
   igraph::E(o.l)$weight <- 1
 
-  m.net <- p.l %u% o.l
+  # m.net <- p.l %u% o.l
+  m.net <- igraph::union(p.l, o.l, byname = T)
   igraph::E(m.net)$weight <- igraph::E(m.net)$weight_1 + igraph::E(m.net)$weight_2
   m.net <- igraph::remove.edge.attribute(m.net, "weight_1")
   m.net <- igraph::remove.edge.attribute(m.net, "weight_2")
