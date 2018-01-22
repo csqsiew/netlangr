@@ -2,18 +2,18 @@
 % Please edit documentation in R/tolangnet.R
 \name{tolangnet}
 \alias{tolangnet}
-\title{Converts a list of words to an igraph network object.}
+\title{*background function* Converts a list of words to an igraph network object.}
 \usage{
 tolangnet(wordlist)
 }
 \arguments{
-\item{wordlist}{A list of words. Must be a character vector.}
+\item{wordlist}{A list of words. *Must be a character vector.*}
 }
 \value{
 An igraph object of the language network created from \code{wordlist}.
 }
 \description{
-Converts a list of words to an igraph network object.
+*background function* Converts a list of words to an igraph network object.
 }
 \examples{
 somewords <- c('cat', 'bat', 'cap', 'cape')

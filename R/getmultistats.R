@@ -1,9 +1,9 @@
-#' Get micro-level network statistics for words in the language network.
+#' Get micro-level network measures for words in the multilayer language network.
 #'
-#' @param network An igraph object of the language network.
+#' @param network An igraph object of the language network (phonographic multiplex).
 #' @return A dataframe containing network statistics for each node in the network.
 #' @examples
-#' data <- getnetstats(network)
+#' data <- getmultistats(network)
 #' head(data)
 
 getmultistats <- function(network) {

@@ -1,4 +1,4 @@
-#' Extract list of nodes in the giant component of the language network.
+#' *background function* Extract list of nodes in the giant component of the language network.
 #'
 #' @param langnet An igraph object created using the \code{tolangnet} function and with label names created with the \code{nodeindex} function.
 #' @return A list of nodes in the LCC of the language network.
@@ -7,7 +7,7 @@
 #' somewordsnet <- tolangnet(somewords)
 #' somewordsnet <- nodeindex(somewordsnet, somewords)
 #' somewords.gc <- giantc(somewordsnet)
-#' somewords.gc
+#' somewords.gc # to view LCC words
 #'
 giantc <- function(langnet) {
   clu <- igraph::components(langnet)     # in-built function in igraph that labels all nodes with a component id

@@ -1,6 +1,6 @@
-#' Converts a list of words to an igraph network object.
+#' *background function* Converts a list of words to an igraph network object.
 #'
-#' @param wordlist A list of words. Must be a character vector.
+#' @param wordlist A list of words. *Must be a character vector.*
 #' @return An igraph object of the language network created from \code{wordlist}.
 #' @examples
 #' somewords <- c('cat', 'bat', 'cap', 'cape')
@@ -51,3 +51,7 @@ tolangnet <- function(wordlist) {
     }
 
 }
+
+
+# To do: Parallelize the code if possible, to speed up network construction for very large wordlists.
+# the for loop is the best candidate for parallelization.

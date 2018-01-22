@@ -2,7 +2,7 @@
 % Please edit documentation in R/giantc.R
 \name{giantc}
 \alias{giantc}
-\title{Extract list of nodes in the giant component of the language network.}
+\title{*background function* Extract list of nodes in the giant component of the language network.}
 \usage{
 giantc(langnet)
 }
@@ -13,13 +13,13 @@ giantc(langnet)
 A list of nodes in the LCC of the language network.
 }
 \description{
-Extract list of nodes in the giant component of the language network.
+*background function* Extract list of nodes in the giant component of the language network.
 }
 \examples{
 somewords <- c('cat', 'bat', 'cap', 'cape')
 somewordsnet <- tolangnet(somewords)
 somewordsnet <- nodeindex(somewordsnet, somewords)
 somewords.gc <- giantc(somewordsnet)
-somewords.gc
+somewords.gc # to view LCC words
 
 }

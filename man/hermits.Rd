@@ -2,7 +2,7 @@
 % Please edit documentation in R/hermits.R
 \name{hermits}
 \alias{hermits}
-\title{Extract list of hermits from an igraph network object.}
+\title{*background function* Extract list of hermits (nodes with no neighbors) from an igraph network object.}
 \usage{
 hermits(langnet)
 }
@@ -13,7 +13,7 @@ hermits(langnet)
 A list of hermits (nodes with no neighbors).
 }
 \description{
-Extract list of hermits from an igraph network object.
+*background function* Extract list of hermits (nodes with no neighbors) from an igraph network object.
 }
 \examples{
 somewords <- c('cat', 'bat', 'cap', 'cape')

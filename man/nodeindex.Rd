@@ -2,7 +2,7 @@
 % Please edit documentation in R/nodeindex.R
 \name{nodeindex}
 \alias{nodeindex}
-\title{Replaces node IDs with their labels.}
+\title{*background function* Replaces node IDs with their labels.}
 \usage{
 nodeindex(langnet, wordlist)
 }
@@ -15,7 +15,7 @@ nodeindex(langnet, wordlist)
 An igraph object of the language network with updated labels.
 }
 \description{
-Replaces node IDs with their labels.
+*background function* Replaces node IDs with their labels.
 }
 \examples{
 somewords <- c('cat', 'bat', 'cap', 'cape')
@@ -24,5 +24,5 @@ plot(somewordsnet) #plots the graph
 
 somewordsnet.labelled <- nodeindex(somewordsnet, somewords)
 plot(somewordsnet.labelled) #notice that this network has labels...
-# note that the generated IDs are dependent on the ordering in the \\code{wordlist}.
+# note that the generated IDs are dependent on the ordering in the \\code{wordlist}, so use the same list to make the labels!
 }

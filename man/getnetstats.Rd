@@ -2,7 +2,7 @@
 % Please edit documentation in R/getnetstats.R
 \name{getnetstats}
 \alias{getnetstats}
-\title{Get micro-level network statistics for words in the language network.}
+\title{Get micro-level network measures for words in the single layer language network.}
 \usage{
 getnetstats(network)
 }
@@ -13,7 +13,7 @@ getnetstats(network)
 A dataframe containing network statistics for each node in the network.
 }
 \description{
-Get micro-level network statistics for words in the language network.
+Get micro-level network measures for words in the single layer language network.
 }
 \examples{
 data <- getnetstats(network)

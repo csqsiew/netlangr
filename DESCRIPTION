@@ -1,17 +1,22 @@
 Package: netlangr
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Title: Generates Language Networks and Network Measures 
+Version: 0.1.1
+Author: CSQ Siew
+Maintainer: CSQ Siew <cynsiewsq@gmail.com>
+Description: This package generates a language network from a list of words.
+    A single layered network is generated from orthography or phonological transcriptions. 
+    A multi-layered network is generated using both the orthography and phonology of words.
+    Network measures can be computed for each word (degree, clustering coefficient, closeness centrality, network component).
+URL: http://github.com/csqsiew/netlangr
+License: What license is it under? MIT? Creative Commons? 
 Encoding: UTF-8
 LazyData: true
 Imports:
   dplyr,
   igraph,
-  stringdist,
-  magrittr
+  stringdist
 RoxygenNote: 6.0.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr

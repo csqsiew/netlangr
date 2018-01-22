@@ -1,4 +1,4 @@
-#' Get micro-level network statistics for words in the language network.
+#' Get micro-level network measures for words in the single layer language network.
 #'
 #' @param network An igraph object of the language network.
 #' @return A dataframe containing network statistics for each node in the network.
@@ -25,7 +25,9 @@ getnetstats <- function(network) {
   comp_output <- as.data.frame(igraph::V(network)$name) # data wrangling to categorize words into network comps
   comp_output$location <- 'L'
   comp_output[which(igraph::V(network)$name %in% g.gc), ]$location <- 'G'
-  comp_output[which(igraph::V(network)$name %in% g.h), ]$location <- 'H'
+  if (length(which(igraph::V(network)$name %in% g.h)) > 0) {
+    comp_output[which(igraph::V(network)$name %in% g.h), ]$location <- 'H' # might not exist
+  }
   colnames(comp_output)[1] <- 'node'
 
   # closeness centrality

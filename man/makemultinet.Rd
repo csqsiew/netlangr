@@ -2,21 +2,22 @@
 % Please edit documentation in R/makemultinet.R
 \name{makemultinet}
 \alias{makemultinet}
-\title{Converts a list of words to an igraph network object. Note that makelangnet is simply a wrapper for tolangnet and nodeindex}
+\title{Converts a list of words to an igraph network object. MULTILAYER
+Note that makemultinet is simply a wrapper for the tolangnet and nodeindex functions,
+but with additional code to make a weighted multilayered network from the union of the orthographic
+and phonological layers of the language network.}
 \usage{
 makemultinet(words)
 }
 \arguments{
-\item{wordlist}{A list of words. Must be a character vector.}
+\item{words}{A dataframe with Phono and Ortho columns of character class.}
 }
 \value{
-An igraph object of the language network created from \code{wordlist}.
+An igraph object of the language network created from \code{words}.
 }
 \description{
-Converts a list of words to an igraph network object. Note that makelangnet is simply a wrapper for tolangnet and nodeindex
-}
-\examples{
-somewords <- c('cat', 'bat', 'cap', 'cape')
-somewordsnet <- tolangnet(somewords)
-plot(somewordsnet) #plots the graph
+Converts a list of words to an igraph network object. MULTILAYER
+Note that makemultinet is simply a wrapper for the tolangnet and nodeindex functions,
+but with additional code to make a weighted multilayered network from the union of the orthographic
+and phonological layers of the language network.
 }

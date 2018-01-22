@@ -1,4 +1,4 @@
-#' Extract list of hermits from an igraph network object.
+#' *background function* Extract list of hermits (nodes with no neighbors) from an igraph network object.
 #'
 #' @param langnet An igraph object created using the \code{tolangnet} function and with label names created with the \code{nodeindex} function.
 #' @return A list of hermits (nodes with no neighbors).

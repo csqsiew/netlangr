@@ -2,20 +2,20 @@
 % Please edit documentation in R/getmultistats.R
 \name{getmultistats}
 \alias{getmultistats}
-\title{Get micro-level network statistics for words in the language network.}
+\title{Get micro-level network measures for words in the multilayer language network.}
 \usage{
 getmultistats(network)
 }
 \arguments{
-\item{network}{An igraph object of the language network.}
+\item{network}{An igraph object of the language network (phonographic multiplex).}
 }
 \value{
 A dataframe containing network statistics for each node in the network.
 }
 \description{
-Get micro-level network statistics for words in the language network.
+Get micro-level network measures for words in the multilayer language network.
 }
 \examples{
-data <- getnetstats(network)
+data <- getmultistats(network)
 head(data)
 }

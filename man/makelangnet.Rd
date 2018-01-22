@@ -2,18 +2,20 @@
 % Please edit documentation in R/makelangnet.R
 \name{makelangnet}
 \alias{makelangnet}
-\title{Converts a list of words to an igraph network object. Note that makelangnet is simply a wrapper for tolangnet and nodeindex}
+\title{Converts a list of words to an igraph network object. SINGLE LAYER
+Note that makelangnet is simply a wrapper for the tolangnet and nodeindex functions.}
 \usage{
 makelangnet(wordlist)
 }
 \arguments{
-\item{wordlist}{A list of words. Must be a character vector.}
+\item{wordlist}{A list of words. *Must be a character vector.*}
 }
 \value{
 An igraph object of the language network created from \code{wordlist}.
 }
 \description{
-Converts a list of words to an igraph network object. Note that makelangnet is simply a wrapper for tolangnet and nodeindex
+Converts a list of words to an igraph network object. SINGLE LAYER
+Note that makelangnet is simply a wrapper for the tolangnet and nodeindex functions.
 }
 \examples{
 somewords <- c('cat', 'bat', 'cap', 'cape')
