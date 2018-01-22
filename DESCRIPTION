@@ -12,5 +12,6 @@ LazyData: true
 Imports:
   dplyr,
   igraph,
-  stringdist
+  stringdist,
+  magrittr
 RoxygenNote: 6.0.1
