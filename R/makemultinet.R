@@ -24,16 +24,16 @@ makemultinet <- function(words) {
   words$label <- paste0(words$Ortho, ';', words$Phono)
 
   p.l <- nodeindex(tolangnet(words$Phono), words$label)
-  E(p.l)$weight <- 1
+  igraph::E(p.l)$weight <- 1
   o.l <- nodeindex(tolangnet(words$Ortho), words$label)
-  E(o.l)$weight <- 1
+  igraph::E(o.l)$weight <- 1
 
   m.net <- p.l %u% o.l
-  E(m.net)$weight <- E(m.net)$weight_1 + E(m.net)$weight_2
-  m.net <- remove.edge.attribute(m.net, "weight_1")
-  m.net <- remove.edge.attribute(m.net, "weight_2")
+  igraph::E(m.net)$weight <- igraph::E(m.net)$weight_1 + igraph::E(m.net)$weight_2
+  m.net <- igraph::remove.edge.attribute(m.net, "weight_1")
+  m.net <- igraph::remove.edge.attribute(m.net, "weight_2")
   # edges = 1 are now NAs, convert them back to 1
-  E(m.net)$weight[which(is.na(E(m.net)$weight))] <- 1
+  igraph::E(m.net)$weight[which(is.na(igraph::E(m.net)$weight))] <- 1
 
   return(m.net)
 }
