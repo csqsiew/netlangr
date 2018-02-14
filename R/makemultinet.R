@@ -7,7 +7,7 @@
 #' @return An igraph object of the language network created from \code{words}.
 #'
 
-makemultinet <- function(words) {
+makemultinet <- function(words, parallel = F) {
   # check that the input has two columns with Ortho and Phono names
   if(is.data.frame(words) == F) {
     stop('Please input a dataframe.')
@@ -23,12 +23,22 @@ makemultinet <- function(words) {
 
   words$label <- paste0(words$Ortho, ';', words$Phono)
 
-  p.l <- nodeindex(tolangnet(words$Phono), words$label)
-  igraph::E(p.l)$weight <- 1
-  igraph::E(p.l)$type <- 'p'
-  o.l <- nodeindex(tolangnet(words$Ortho), words$label)
-  igraph::E(o.l)$weight <- 1
-  igraph::E(o.l)$type <- 'o'
+
+  if (parallel == F) {
+    p.l <- nodeindex(tolangnet(words$Phono), words$label)
+    igraph::E(p.l)$weight <- 1
+    igraph::E(p.l)$type <- 'p'
+    o.l <- nodeindex(tolangnet(words$Ortho), words$label)
+    igraph::E(o.l)$weight <- 1
+    igraph::E(o.l)$type <- 'o'
+  } else { # parallel == T
+    p.l <- nodeindex(tolangnet_p(words$Phono), words$label)
+    igraph::E(p.l)$weight <- 1
+    igraph::E(p.l)$type <- 'p'
+    o.l <- nodeindex(tolangnet_p(words$Ortho), words$label)
+    igraph::E(o.l)$weight <- 1
+    igraph::E(o.l)$type <- 'o'
+  }
 
   # m.net <- p.l %u% o.l
   m.net <- igraph::union(p.l, o.l, byname = T)

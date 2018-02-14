@@ -8,8 +8,14 @@
 #' somewordsnet <- tolangnet(somewords)
 #' plot(somewordsnet) #plots the graph
 
-makelangnet <- function(wordlist) {
-  # network <- tolangnet(wordlist)
-  network <- nodeindex(tolangnet(wordlist), wordlist)
+makelangnet <- function(wordlist, parallel = F) {
+
+  if (parallel == F) {
+    network <- nodeindex(tolangnet(wordlist), wordlist)
+  } else { # parallel == T
+    network <- nodeindex(tolangnet_p(wordlist), wordlist)
+  }
+
   return(network)
-}
+
+  }

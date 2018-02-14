@@ -15,7 +15,9 @@ LazyData: true
 Imports:
   dplyr,
   igraph,
-  stringdist
+  stringdist,
+  foreach,
+  doParallel
 RoxygenNote: 6.0.1
 Suggests: knitr,
     rmarkdown
