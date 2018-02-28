@@ -24,6 +24,7 @@ nodeindex <- function(langnet, wordlist) {                       # network creat
   oldnames <- dplyr::left_join(oldnames, newnames, by = 'nodeid') # merge node ids and labels
 
   igraph::V(langnet)$name <- as.character(oldnames$label) # replace old names (ids) with new names (labels)
+  igraph::V(langnet)$id <- c(1:length(wordlist)) # to make each node unique
 
   return(langnet) #returns the igraph network with updated labels
 }
