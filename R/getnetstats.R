@@ -15,7 +15,8 @@ getnetstats <- function(network) {
 
   # clustering coefficent (local, undirected)
   clustering_output <- as.data.frame(igraph::transitivity(network, type = 'local', isolates = 'zero'))
-  clustering_output$node <- names(igraph::V(network))
+  # clustering_output$node <- names(igraph::V(network)) # this was causing duplicates in the final output when there are homophones
+  clustering_output$node <- row.names(clustering_output)
   colnames(clustering_output)[1] <- 'clustering'
 
   # network component
@@ -28,7 +29,8 @@ getnetstats <- function(network) {
   if (length(which(igraph::V(network)$name %in% g.h)) > 0) {
     comp_output[which(igraph::V(network)$name %in% g.h), ]$location <- 'H' # might not exist
   }
-  colnames(comp_output)[1] <- 'node'
+  colnames(comp_output)[1] <- 'label'
+  comp_output$node <- c(1:nrow(comp_output))
 
   # closeness centrality
   # closeness in igraph calculates a value for all nodes in a disconnected graph
@@ -40,10 +42,14 @@ getnetstats <- function(network) {
   closeness_output$node <- row.names(closeness_output)
   colnames(closeness_output)[1] <- 'closeness_gc'
 
+  class(degree_output$node) <- 'integer' # clean up class types before merging by node number
+  class(clustering_output$node) <- 'integer'
+  class(closeness_output$node) <- 'integer'
+
   # compile data and output
-  df <- suppressMessages(suppressWarnings(dplyr::left_join(comp_output, degree_output) %>%
-                                            dplyr::left_join(clustering_output) %>%
-                                            dplyr::left_join(closeness_output))) # hermits and islands will have NA for closeness
+  df <- suppressMessages(suppressWarnings(dplyr::left_join(comp_output, degree_output, by = 'node') %>%
+                                            dplyr::left_join(clustering_output, by = 'node') %>%
+                                            dplyr::left_join(closeness_output, by = 'node'))) # hermits and islands will have NA for closeness
 
   return(df)
 }
