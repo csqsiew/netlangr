@@ -10,10 +10,10 @@ getnetstats <- function(network) {
 
   # degree (local, undirected)
   degree_output <- data.frame(degree = igraph::degree(network),
-                              id = c(1:nrow(degree_output)))
+                              id = c(1:vcount(network)))
 
   # clustering coefficent (local, undirected)
-  clustering_output <- data.frame(id = c(1:nrow(clustering_output)),
+  clustering_output <- data.frame(id = c(1:vcount(network)),
                                   clustering = igraph::transitivity(network, type = 'local', isolates = 'zero'))
 
   # network component
