@@ -12,30 +12,48 @@ getmultistats <- function(network) {
   # unique degree (nodes that are found in both layers)
   # subset the graph by weight == 2 (this is the pg.net)
   pg.net <- igraph::subgraph.edges(network, igraph::E(network)[igraph::E(network)$weight > 1], del = F)
-  degree_output_1 <- as.data.frame(igraph::degree(pg.net))
-  degree_output_1$node <- row.names(degree_output_1)
-  colnames(degree_output_1)[1] <- 'degree.pg'
+  #degree_output_1 <- as.data.frame(igraph::degree(pg.net))
+  #degree_output_1$node <- row.names(degree_output_1)
+  #colnames(degree_output_1)[1] <- 'degree.pg'
+
+  degree_output_1 <- data.frame(degree.pg = igraph::degree(pg.net),
+                              id = c(1:vcount(pg.net)))
 
   # neighborhood degree (found in either layer, exclude duplicates)
-  degree_output_2 <- as.data.frame(igraph::degree(network)) # ignores weights, naturally exclude duplicates
-  degree_output_2$node <- row.names(degree_output_2)
-  colnames(degree_output_2)[1] <- 'degree.all'
+  #degree_output_2 <- as.data.frame(igraph::degree(network)) # ignores weights, naturally exclude duplicates
+  #degree_output_2$node <- row.names(degree_output_2)
+  #colnames(degree_output_2)[1] <- 'degree.all'
+
+  degree_output_2 <- data.frame(degree.all = igraph::degree(network),
+                                id = c(1:vcount(network)))
 
   # clustering
   # unique C (overlap in both layers), i.e., pg-C
-  clustering_output_1 <- as.data.frame(igraph::transitivity(pg.net, type = 'local', isolates = 'zero'))
-  clustering_output_1$node <- names(igraph::V(pg.net))
-  colnames(clustering_output_1)[1] <- 'clustering.pg'
+  #clustering_output_1 <- as.data.frame(igraph::transitivity(pg.net, type = 'local', isolates = 'zero'))
+  #clustering_output_1$node <- names(igraph::V(pg.net))
+  #colnames(clustering_output_1)[1] <- 'clustering.pg'
+
+  clustering_output_1 <- data.frame(id = c(1:vcount(pg.net)),
+                          clustering.pg = igraph::transitivity(pg.net, type = 'local', isolates = 'zero'))
+
 
   # neighborhood C (both layers considered, unweighted)
-  clustering_output_2 <- as.data.frame(igraph::transitivity(network, type = 'local', isolates = 'zero'))
-  clustering_output_2$node <- names(igraph::V(network))
-  colnames(clustering_output_2)[1] <- 'clustering.unweighted'
+  #clustering_output_2 <- as.data.frame(igraph::transitivity(network, type = 'local', isolates = 'zero'))
+  #clustering_output_2$node <- names(igraph::V(network))
+  #colnames(clustering_output_2)[1] <- 'clustering.unweighted'
+
+  clustering_output_2 <- data.frame(id = c(1:vcount(network)),
+                  clustering.unweighted = igraph::transitivity(network, type = 'local', isolates = 'zero'))
+
 
   # neighborhood C (both layers considered, weighted)
-  clustering_output_3 <- as.data.frame(igraph::transitivity(network, type = 'weighted', isolates = 'zero'))
-  clustering_output_3$node <- names(igraph::V(network))
-  colnames(clustering_output_3)[1] <- 'clustering.weighted'
+  #clustering_output_3 <- as.data.frame(igraph::transitivity(network, type = 'weighted', isolates = 'zero'))
+  #clustering_output_3$node <- names(igraph::V(network))
+  #colnames(clustering_output_3)[1] <- 'clustering.weighted'
+
+  clustering_output_3 <- data.frame(id = c(1:vcount(network)),
+                clustering.weighted = igraph::transitivity(network, type = 'weighted', isolates = 'zero'))
+
 
   # network component
   g.gc <- giantc(network) # list of words in the gc
@@ -48,6 +66,7 @@ getmultistats <- function(network) {
     comp_output[which(igraph::V(network)$name %in% g.h), ]$location <- 'H' # might not exist
   }
   colnames(comp_output)[1] <- 'node'
+  comp_output$id <- c(1:nrow(comp_output))
 
   # closeness centrality
   # closeness in igraph calculates a value for all nodes in a disconnected graph
@@ -55,25 +74,35 @@ getmultistats <- function(network) {
   x <- sapply(igraph::decompose.graph(network), igraph::vcount) # split graph into their components
   y <- which(x == max(x)) # find the largest connected component
   lcc <- igraph::decompose.graph(network)[[y]] # select the lcc
-  closeness_output_1 <- as.data.frame(igraph::closeness(lcc, normalized = T)) # get closeness for each node, normalized or not?
+
+  cc_out <- igraph::closeness(lcc, normalized = T)
+
+  closeness_output_1 <- data.frame(
+    closeness.gc.weighted = cc_out, id = V(lcc)$id) # get closeness for each node, normalized or not?
+
+  #closeness_output_1 <- as.data.frame(igraph::closeness(lcc, normalized = T)) # get closeness for each node, normalized or not?
   # normalized = T because networks can be of different sizes, want values to be comparable across different network sizes?
-  closeness_output_1$node <- row.names(closeness_output_1)
-  colnames(closeness_output_1)[1] <- 'closeness.gc.weighted'
+  #closeness_output_1$node <- row.names(closeness_output_1)
+  #colnames(closeness_output_1)[1] <- 'closeness.gc.weighted'
 
   igraph::E(lcc)$weight <- 1 # to force weights to be the same for all, so centrality is calculated on an unweighted lcc
   # might not be a huge difference...
-  closeness_output_2 <- as.data.frame(igraph::closeness(lcc, normalized = T)) # get closeness for each node, normalized or not?
-  closeness_output_2$node <- row.names(closeness_output_2)
-  colnames(closeness_output_2)[1] <- 'closeness.gc.unweighted'
+  cc_out <- igraph::closeness(lcc, normalized = T)
+  closeness_output_2 <- data.frame(
+    closeness.gc.unweighted = cc_out, id = V(lcc)$id)
+
+  #closeness_output_2 <- as.data.frame(igraph::closeness(lcc, normalized = T)) # get closeness for each node, normalized or not?
+  #closeness_output_2$node <- row.names(closeness_output_2)
+  #colnames(closeness_output_2)[1] <- 'closeness.gc.unweighted'
 
   # compile data and output
-  df <- suppressMessages(suppressWarnings(dplyr::left_join(comp_output, degree_output_1) %>%
-                                            dplyr::left_join(degree_output_2) %>%
-                                            dplyr::left_join(clustering_output_1) %>%
-                                            dplyr::left_join(clustering_output_2) %>%
-                                            dplyr::left_join(clustering_output_3) %>%
-                                            dplyr::left_join(closeness_output_1) %>%
-                                            dplyr::left_join(closeness_output_2))) # hermits and islands will have NA for closeness
+  df <- suppressMessages(suppressWarnings(dplyr::left_join(comp_output, degree_output_1, by = 'id') %>%
+                                            dplyr::left_join(degree_output_2, by = 'id') %>%
+                                            dplyr::left_join(clustering_output_1, by = 'id') %>%
+                                            dplyr::left_join(clustering_output_2, by = 'id') %>%
+                                            dplyr::left_join(clustering_output_3, by = 'id') %>%
+                                            dplyr::left_join(closeness_output_1, by = 'id') %>%
+                                            dplyr::left_join(closeness_output_2, by = 'id'))) # hermits and islands will have NA for closeness
 
 
   return(df)

@@ -29,7 +29,7 @@ getnetstats <- function(network) {
   colnames(comp_output)[1] <- 'node'
   comp_output$id <- c(1:nrow(comp_output))
 
-  V(network)$id <- c(1:vcount(network))
+  # V(network)$id <- c(1:vcount(network))
 
   # closeness centrality
   # closeness in igraph calculates a value for all nodes in a disconnected graph
