@@ -89,7 +89,7 @@ getmultistats <- function(network) {
   # might not be a huge difference...
   cc_out <- igraph::closeness(lcc, normalized = T)
   closeness_output_2 <- data.frame(
-    closeness.gc.unweighted = cc_out, id = V(lcc)$id)
+    closeness.gc.unweighted = cc_out, id = igraph::V(lcc)$id)
 
   #closeness_output_2 <- as.data.frame(igraph::closeness(lcc, normalized = T)) # get closeness for each node, normalized or not?
   #closeness_output_2$node <- row.names(closeness_output_2)
