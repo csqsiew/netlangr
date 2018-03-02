@@ -17,7 +17,7 @@ getmultistats <- function(network) {
   #colnames(degree_output_1)[1] <- 'degree.pg'
 
   degree_output_1 <- data.frame(degree.pg = igraph::degree(pg.net),
-                              id = c(1:vcount(pg.net)))
+                              id = c(1:gorder(pg.net)))
 
   # neighborhood degree (found in either layer, exclude duplicates)
   #degree_output_2 <- as.data.frame(igraph::degree(network)) # ignores weights, naturally exclude duplicates
@@ -25,7 +25,7 @@ getmultistats <- function(network) {
   #colnames(degree_output_2)[1] <- 'degree.all'
 
   degree_output_2 <- data.frame(degree.all = igraph::degree(network),
-                                id = c(1:vcount(network)))
+                                id = c(1:gorder(network)))
 
   # clustering
   # unique C (overlap in both layers), i.e., pg-C
@@ -33,7 +33,7 @@ getmultistats <- function(network) {
   #clustering_output_1$node <- names(igraph::V(pg.net))
   #colnames(clustering_output_1)[1] <- 'clustering.pg'
 
-  clustering_output_1 <- data.frame(id = c(1:vcount(pg.net)),
+  clustering_output_1 <- data.frame(id = c(1:gorder(pg.net)),
                           clustering.pg = igraph::transitivity(pg.net, type = 'local', isolates = 'zero'))
 
 
@@ -42,7 +42,7 @@ getmultistats <- function(network) {
   #clustering_output_2$node <- names(igraph::V(network))
   #colnames(clustering_output_2)[1] <- 'clustering.unweighted'
 
-  clustering_output_2 <- data.frame(id = c(1:vcount(network)),
+  clustering_output_2 <- data.frame(id = c(1:gorder(network)),
                   clustering.unweighted = igraph::transitivity(network, type = 'local', isolates = 'zero'))
 
 
@@ -51,7 +51,7 @@ getmultistats <- function(network) {
   #clustering_output_3$node <- names(igraph::V(network))
   #colnames(clustering_output_3)[1] <- 'clustering.weighted'
 
-  clustering_output_3 <- data.frame(id = c(1:vcount(network)),
+  clustering_output_3 <- data.frame(id = c(1:gorder(network)),
                 clustering.weighted = igraph::transitivity(network, type = 'weighted', isolates = 'zero'))
 
 
@@ -71,7 +71,7 @@ getmultistats <- function(network) {
   # closeness centrality
   # closeness in igraph calculates a value for all nodes in a disconnected graph
   # it only really makes sense to calculate closeness for nodes in the gc.
-  x <- sapply(igraph::decompose.graph(network), igraph::vcount) # split graph into their components
+  x <- sapply(igraph::decompose.graph(network), igraph::gorder) # split graph into their components
   y <- which(x == max(x)) # find the largest connected component
   lcc <- igraph::decompose.graph(network)[[y]] # select the lcc
 

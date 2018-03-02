@@ -10,10 +10,10 @@ getnetstats <- function(network) {
 
   # degree (local, undirected)
   degree_output <- data.frame(degree = igraph::degree(network),
-                              id = c(1:vcount(network)))
+                              id = c(1:gorder(network)))
 
   # clustering coefficent (local, undirected)
-  clustering_output <- data.frame(id = c(1:vcount(network)),
+  clustering_output <- data.frame(id = c(1:gorder(network)),
                                   clustering = igraph::transitivity(network, type = 'local', isolates = 'zero'))
 
   # network component
@@ -29,12 +29,12 @@ getnetstats <- function(network) {
   colnames(comp_output)[1] <- 'node'
   comp_output$id <- c(1:nrow(comp_output))
 
-  # V(network)$id <- c(1:vcount(network))
+  # V(network)$id <- c(1:gorder(network))
 
   # closeness centrality
   # closeness in igraph calculates a value for all nodes in a disconnected graph
   # it only really makes sense to calculate closeness for nodes in the gc.
-  x <- sapply(igraph::decompose.graph(network), igraph::vcount) # split graph into their components
+  x <- sapply(igraph::decompose.graph(network), igraph::gorder) # split graph into their components
   y <- which(x == max(x)) # find the largest connected component
   lcc <- igraph::decompose.graph(network)[[y]] # select the lcc
   cc_out <- igraph::closeness(lcc, normalized = T)
