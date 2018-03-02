@@ -78,7 +78,7 @@ getmultistats <- function(network) {
   cc_out <- igraph::closeness(lcc, normalized = T)
 
   closeness_output_1 <- data.frame(
-    closeness.gc.weighted = cc_out, id = V(lcc)$id) # get closeness for each node, normalized or not?
+    closeness.gc.weighted = cc_out, id = igraph::V(lcc)$id) # get closeness for each node, normalized or not?
 
   #closeness_output_1 <- as.data.frame(igraph::closeness(lcc, normalized = T)) # get closeness for each node, normalized or not?
   # normalized = T because networks can be of different sizes, want values to be comparable across different network sizes?

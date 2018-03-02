@@ -39,7 +39,7 @@ getnetstats <- function(network) {
   lcc <- igraph::decompose.graph(network)[[y]] # select the lcc
   cc_out <- igraph::closeness(lcc, normalized = T)
   closeness_output <- data.frame(
-    closeness_gc = cc_out, id = V(lcc)$id) # get closeness for each node, normalized or not?
+    closeness_gc = cc_out, id = igraph::V(lcc)$id) # get closeness for each node, normalized or not?
 
 
   # compile data and output
