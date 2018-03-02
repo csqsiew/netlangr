@@ -52,7 +52,7 @@ makemultinet <- function(words, parallel = F) {
   m.net <- igraph::remove.edge.attribute(m.net, "type_1")
   m.net <- igraph::remove.edge.attribute(m.net, "type_2")
 
-  igraph::V(m.net)$id <- c(1:gorder(m.net)) # to make each node unique
+  igraph::V(m.net)$id <- c(1:igraph::gorder(m.net)) # to make each node unique
 
   return(m.net)
 }
