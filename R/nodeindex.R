@@ -19,6 +19,7 @@ nodeindex <- function(langnet, wordlist) {                       # network creat
 
   newnames <- as.data.frame(wordlist) # set up the wordlist for merging
   colnames(newnames) <- 'label'
+  newnames$label <- paste0(newnames$label, '_', 1:nrow(newnames))
   newnames$nodeid <- c(1:nrow(newnames))
 
   oldnames <- dplyr::left_join(oldnames, newnames, by = 'nodeid') # merge node ids and labels

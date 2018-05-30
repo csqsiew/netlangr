@@ -11,6 +11,7 @@
 
 hermits <- function(langnet) {
   x <- as.data.frame(igraph::degree(langnet)) # get a list of nodes and their degrees
+  row.names(x) <- igraph::V(langnet)$name
   hermits <- rownames(x)[which(x == 0)]       # extract nodes if degree == 0
   return(hermits)                             # if no hermits, hermits() will return an empty vector
 }
