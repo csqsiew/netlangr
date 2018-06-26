@@ -60,7 +60,7 @@ tolangnet_p <- function(wordlist) {
   data_e <- j
 
   # close cluster
-  stopCluster(cl)
+  parallel::stopCluster(cl)
 
   ### END PARALLEL CODE
 
