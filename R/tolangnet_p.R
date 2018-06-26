@@ -25,13 +25,13 @@ tolangnet_p <- function(wordlist) {
 
   # initialize
   # Create cluster with desired number of cores
-  ncores <- detectCores()
-  cl <- makeCluster(ncores)
+  ncores <- parallel::detectCores()
+  cl <- parallel::makeCluster(ncores)
   # Register cluster
-  registerDoParallel(cl)
+  doParallel::registerDoParallel(cl)
 
   # parallel code
-  j <- foreach(x = 1:length(wordlist), .combine = rbind
+  j <- foreach::foreach(x = 1:length(wordlist), .combine = rbind
                # .packages = c('dplyr', 'samr', 'igraph')
                ) %dopar% {
 
