@@ -18,7 +18,8 @@ Imports:
   stringdist,
   foreach,
   doParallel,
-  parallel
+  parallel,
+  tnet
 RoxygenNote: 6.0.1
 Suggests: knitr,
     rmarkdown
